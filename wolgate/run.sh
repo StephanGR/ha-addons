@@ -1,6 +1,6 @@
 #!/bin/bash
 CONFIG_PATH=/data/options.json
-NEW_CONFIG="/app/config.json"
+NEW_CONFIG="/config.json"
 
 WOL_MAC=$(jq --raw-output '.wol_macAddress' $CONFIG_PATH)
 WOL_BROADCAST=$(jq --raw-output '.wol_broadcastAddress' $CONFIG_PATH)
