@@ -14,10 +14,10 @@
     "i386"
   ],
   "ports": {
-    "appPort": 25565
+    "25565/tcp": 25565
   },
   "ports_description": {
-    "appPort": "Port on which wolgate is running"
+    "25565/tcp": "Port on which wolgate is running"
   },
   "options": {
     "wol_macAddress": "50:91:e3:c9:37:18",
