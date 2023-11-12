@@ -1,31 +1,26 @@
-name: "WolGate"
-version: "1.0.0"
-slug: "wol-gate"
-description: "WolGate description"
-arch:
-  - amd64
-  - armhf
-  - armv7
-  - aarch64
-  - i386
-options:
-  wol_macAddress:
-    description: "Adresse MAC pour le Wake On Lan"
-    required: true
-    type: string
-  wol_broadcastAddress:
-    description: "Adresse de broadcast pour le Wake On Lan"
-    required: true
-    type: string
-  proxyServer_host:
-    description: "Hôte pour le serveur proxy"
-    required: true
-    type: string
-  proxyServer_port:
-    description: "Port pour le serveur proxy"
-    required: true
-    type: int
-  domains:
-    description: "Configuration des domaines en format JSON"
-    required: true
-    type: string
+{
+  "name": "WolGate",
+  "version": "1.0",
+  "slug": "wolgate",
+  "description": "Description of wolgate",
+  "url": "https://github.com/StephanGR/ha-addons/tree/main/wolgate",
+  "arch": [
+    "armv7",
+    "armhf",
+    "aarch64",
+    "amd64",
+    "i386"
+  ],
+  "ports": {
+    "25565/tcp": 25565
+  },
+  "ports_description": {
+    "25565/tcp": "Port on which application is running"
+  },
+  "options": {
+    "config_files": []
+  },
+  "schema": {
+    "config_files": ["match(/(share|config)/.+)"]
+  }
+}
