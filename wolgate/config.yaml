@@ -1,8 +1,8 @@
 name: WolGate
-version: "1.0"
+version: "1.0.1"
 slug: wolgate
 startup: application
-stage: experimental
+stage: stable
 description: Description of wolgate
 url: https://github.com/StephanGR/ha-addons/tree/main/wolgate
 arch:
