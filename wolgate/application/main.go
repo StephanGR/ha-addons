@@ -23,6 +23,7 @@ type Config struct {
 }
 
 type DomainConfig struct {
+	Url     string `json:"url"`
 	Address string `json:"address"`
 	Port    int    `json:"port"`
 }
@@ -132,13 +133,13 @@ func handleDomainProxy(w http.ResponseWriter, r *http.Request, domain DomainConf
 }
 
 func handler(logger *logrus.Logger, w http.ResponseWriter, r *http.Request, config *Config, serverState *ServerState) {
-	domain, ok := config.Domains[r.Host]
-	if !ok {
+	domainConfig, found := findDomainConfig(config.Domains, r.Host)
+	if !found {
 		http.Error(w, "Domain not configured", http.StatusNotFound)
 		return
 	}
 
-	serverAddress := fmt.Sprintf("%s:%d", domain.Address, domain.Port)
+	serverAddress := fmt.Sprintf("%s:%d", domainConfig.Address, domainConfig.Port)
 
 	if !isServerUp(serverAddress) {
 		logger.Info("Plex server is offline, trying to wake up using Wake On Lan")
@@ -166,7 +167,7 @@ func handler(logger *logrus.Logger, w http.ResponseWriter, r *http.Request, conf
 			}
 		}
 	} else {
-		handleDomainProxy(w, r, domain)
+		handleDomainProxy(w, r, *domainConfig)
 	}
 }
 
@@ -180,6 +181,15 @@ func requestLoggerMiddleware(logger *logrus.Logger, next http.Handler) http.Hand
 		logRequest(logger, r)
 		next.ServeHTTP(w, r)
 	})
+}
+
+func findDomainConfig(domains map[string]DomainConfig, host string) (*DomainConfig, bool) {
+	for _, domain := range domains {
+		if domain.Url == host {
+			return &domain, true
+		}
+	}
+	return nil, false
 }
 
 func main() {

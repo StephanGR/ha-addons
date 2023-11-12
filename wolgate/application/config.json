@@ -3,18 +3,16 @@
     "macAddress": "50:91:e3:c9:37:18",
     "broadcastAddress": "255.255.255.255:9"
   },
-  "proxyServer": {
-    "host": "localhost",
-    "port": 25565
-  },
-  "domains": {
-    "play.alypto.com": {
+  "domains": [
+    {
+      "url": "play.alypto.com",
       "address": "192.168.0.200",
       "port": 32400
     },
-    "jelly.alypto.com": {
+    {
+      "url": "jelly.alypto.com",
       "address": "192.168.0.200",
       "port": 8096
     }
-  }
+  ]
 }
