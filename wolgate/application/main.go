@@ -19,7 +19,7 @@ type Config struct {
 		MacAddress       string `json:"macAddress"`
 		BroadcastAddress string `json:"broadcastAddress"`
 	} `json:"wol"`
-	Domains map[string]DomainConfig `json:"domains"`
+	Domains []DomainConfig `json:"domains"`
 }
 
 type DomainConfig struct {
@@ -183,7 +183,7 @@ func requestLoggerMiddleware(logger *logrus.Logger, next http.Handler) http.Hand
 	})
 }
 
-func findDomainConfig(domains map[string]DomainConfig, host string) (*DomainConfig, bool) {
+func findDomainConfig(domains []DomainConfig, host string) (*DomainConfig, bool) {
 	for _, domain := range domains {
 		if domain.Url == host {
 			return &domain, true
