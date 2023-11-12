@@ -13,9 +13,6 @@ cat << EOF > $NEW_CONFIG
     "macAddress": "$WOL_MAC",
     "broadcastAddress": "$WOL_BROADCAST"
   },
-  "proxyServer": {
-    "host": "$PROXY_HOST"
-  },
   "domains": $DOMAINS
 }
 EOF

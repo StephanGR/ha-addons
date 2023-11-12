@@ -19,9 +19,6 @@ type Config struct {
 		MacAddress       string `json:"macAddress"`
 		BroadcastAddress string `json:"broadcastAddress"`
 	} `json:"wol"`
-	ProxyServer struct {
-		Host string `json:"host"`
-	} `json:"proxyServer"`
 	Domains map[string]DomainConfig `json:"domains"`
 }
 
