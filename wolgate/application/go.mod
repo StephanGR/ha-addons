@@ -1,4 +1,4 @@
-module github.com/StephanGR/proxy-plex
+module github.com/StephanGR/ha-addons/wolgate/application
 
 go 1.21.3
 
