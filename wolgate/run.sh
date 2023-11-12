@@ -22,4 +22,4 @@ cat << EOF > $NEW_CONFIG
 }
 EOF
 
-/app/wolgate
+/wolgate
