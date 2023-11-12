@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"github.com/mdlayher/wol"
 	"github.com/sirupsen/logrus"
-	"log"
 	"net"
 	"net/http"
 	"net/http/httputil"
@@ -191,8 +190,10 @@ func main() {
 	serverState := &ServerState{}
 	config, err := loadConfig("/config.json")
 	if err != nil {
-		log.Fatal("Error loading config file: ", err)
+		logger.Fatal("Error loading config file: ", err)
 	}
+
+	logger.Info("Configuration successfully loaded")
 
 	mux := http.NewServeMux()
 
@@ -204,5 +205,6 @@ func main() {
 
 	loggedMux := requestLoggerMiddleware(logger, mux)
 
-	logger.Fatal(http.ListenAndServe(fmt.Sprintf("%s:%d", config.ProxyServer.Host, 80), loggedMux))
+	logger.Info("Starting app..")
+	logger.Fatal(http.ListenAndServe(":80", loggedMux))
 }

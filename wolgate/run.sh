@@ -20,7 +20,7 @@ cat << EOF > $NEW_CONFIG
 }
 EOF
 
-# shellcheck disable=SC1072
+echo "Loaded configuration :"
 jq '.' $NEW_CONFIG
 
 /wolgate
