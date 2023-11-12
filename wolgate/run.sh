@@ -1,6 +1,8 @@
 #!/bin/bash
-CONFIG_PATH=/data/options.json
+CONFIG_PATH="/data/options.json"
 NEW_CONFIG="/config.json"
+
+cat $CONFIG_PATH
 
 WOL_MAC=$(jq --raw-output '.wol_macAddress' $CONFIG_PATH)
 WOL_BROADCAST=$(jq --raw-output '.wol_broadcastAddress' $CONFIG_PATH)
@@ -21,7 +23,5 @@ cat << EOF > $NEW_CONFIG
   "domains": $DOMAINS
 }
 EOF
-
-cat $CONFIG_PATH
 
 /wolgate
