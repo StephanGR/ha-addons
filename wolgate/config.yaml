@@ -21,4 +21,4 @@ options:
 schema:
   wol_macAddress: str
   wol_broadcastAddress: str
-  domains: dict
+  domains: list
