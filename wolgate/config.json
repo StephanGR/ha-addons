@@ -22,12 +22,10 @@
   "options": {
     "wol_macAddress": "50:91:e3:c9:37:18",
     "wol_broadcastAddress": "255.255.255.255:9",
-    "proxyServer_host": "localhost"
   },
   "schema": {
     "wol_macAddress": "str",
     "wol_broadcastAddress": "str",
-    "proxyServer_host": "str",
     "domains": "str"
   }
 }
