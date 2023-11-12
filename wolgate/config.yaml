@@ -9,3 +9,4 @@ arch:
   - armv7
   - i386
 startup: system
+stage: stable

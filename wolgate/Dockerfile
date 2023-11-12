@@ -1,11 +1,14 @@
-FROM golang:latest
+FROM golang:1.21-alpine as builder
 
 WORKDIR /app
 
-COPY main.go .
-COPY go.mod .
-COPY go.sum .
+COPY application/main.go .
+COPY application/go.mod .
+COPY application/go.sum .
 
 RUN go build -o wolgate
 
-CMD ["/app/wolgate"]
+FROM alpine:latest
+
+COPY --from=builder /app/wolgate /wolgate
+CMD ["/wolgate"]
