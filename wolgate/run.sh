@@ -22,6 +22,6 @@ cat << EOF > $NEW_CONFIG
 }
 EOF
 
-ls -l /
+cat $NEW_CONFIG
 
 /wolgate
