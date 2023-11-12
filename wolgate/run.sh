@@ -22,6 +22,11 @@ cat << EOF > $NEW_CONFIG
 }
 EOF
 
-cat $NEW_CONFIG | jsonlint -f
+echo "AVANT FORMAT"
+cat $NEW_CONFIG
+
+echo "APRES FORMAT"
+jq '.' $NEW_CONFIG
+cat $NEW_CONFIG
 
 /wolgate

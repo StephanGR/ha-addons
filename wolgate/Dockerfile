@@ -11,7 +11,7 @@ RUN go build -o wolgate
 # WE USE ALPINE TO RUN THE APP
 FROM alpine:latest
 
-RUN apk update && apk upgrade && apk add bash jq jsonlint
+RUN apk update && apk upgrade && apk add bash jq
 
 COPY --from=builder /app/wolgate /wolgate
 COPY run.sh /run.sh
