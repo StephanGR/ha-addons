@@ -185,7 +185,17 @@ func requestLoggerMiddleware(logger *logrus.Logger, next http.Handler) http.Hand
 
 func findDomainConfig(domains []DomainConfig, host string) (*DomainConfig, bool) {
 	for _, domain := range domains {
-		if domain.Url == host {
+		parsedUrl, err := url.Parse(domain.Url)
+		if err != nil {
+			continue
+		}
+
+		domainName := parsedUrl.Host
+		if domainName == "" {
+			domainName = domain.Url
+		}
+
+		if domainName == host {
 			return &domain, true
 		}
 	}
