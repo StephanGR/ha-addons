@@ -2,6 +2,12 @@ name: WolGate
 version: 1.0.0
 slug: wol-gate
 description: WolGate description
+arch:
+  - aarch64
+  - amd64
+  - armhf
+  - armv7
+  - i386
 startup: system
 stage: stable
 options:
