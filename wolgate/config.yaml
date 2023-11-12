@@ -28,4 +28,4 @@ options:
   domains:
     description: "Configuration des domaines en format JSON"
     required: true
-    type: json
+    type: string
