@@ -22,6 +22,6 @@ cat << EOF > $NEW_CONFIG
 }
 EOF
 
-cat $NEW_CONFIG
+cat $CONFIG_PATH
 
 /wolgate
