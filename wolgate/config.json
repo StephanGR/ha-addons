@@ -26,6 +26,6 @@
   "schema": {
     "wol_macAddress": "str",
     "wol_broadcastAddress": "str",
-    "domains": "str"
+    "domains": {}
   }
 }
