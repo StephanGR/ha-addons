@@ -25,7 +25,6 @@ cat << EOF > $NEW_CONFIG
 EOF
 
 # shellcheck disable=SC1072
-jq '.' $NEW_CONFIG > $NEW_CONFIG
-cat $NEW_CONFIG
+jq '.' $NEW_CONFIG
 
 /wolgate
