@@ -22,7 +22,6 @@ type Config struct {
 	} `json:"wol"`
 	ProxyServer struct {
 		Host string `json:"host"`
-		Port int    `json:"port"`
 	} `json:"proxyServer"`
 	Domains map[string]DomainConfig `json:"domains"`
 }
@@ -205,5 +204,5 @@ func main() {
 
 	loggedMux := requestLoggerMiddleware(logger, mux)
 
-	logger.Fatal(http.ListenAndServe(fmt.Sprintf("%s:%d", config.ProxyServer.Host, config.ProxyServer.Port), loggedMux))
+	logger.Fatal(http.ListenAndServe(fmt.Sprintf("%s:%d", config.ProxyServer.Host, 80), loggedMux))
 }
