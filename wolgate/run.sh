@@ -22,11 +22,8 @@ cat << EOF > $NEW_CONFIG
 }
 EOF
 
-echo "AVANT FORMAT"
-cat $NEW_CONFIG
-
-echo "APRES FORMAT"
-jq '.' $NEW_CONFIG
+# shellcheck disable=SC1072
+jq '.' $NEW_CONFIG > $NEW_CONFIG
 cat $NEW_CONFIG
 
 /wolgate
