@@ -9,4 +9,6 @@ RUN go build -o wolgate
 
 FROM alpine:latest
 COPY --from=builder /app/wolgate /wolgate
-CMD ["/wolgate"]
+COPY run.sh /run.sh
+RUN chmod a+x /run.sh
+CMD ["/run.sh"]
