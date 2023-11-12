@@ -10,12 +10,13 @@ arch:
   - i386
 startup: system
 stage: stable
-Wake On Lan:
+options:
   macAddress: ""
   broadcastAddress: "255.255.255.255:9"
-Proxy Server:
   host: "localhost"
   port: 25565
 schema:
-  option1: "str"
-  option2: "bool"
+  macAddress: "str"
+  broadcastAddress: "str"
+  host: "str"
+  port: "int"
