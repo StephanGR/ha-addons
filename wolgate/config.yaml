@@ -1,0 +1,26 @@
+name: WolGate
+version: "1.0"
+slug: wolgate
+startup: application
+stage: experimental
+description: Description of wolgate
+url: https://github.com/StephanGR/ha-addons/tree/main/wolgate
+arch:
+  - armv7
+  - armhf
+  - aarch64
+  - amd64
+  - i386
+ports:
+  80/tcp: 25565
+ports_description:
+  80/tcp: Port on which wolgate is running
+options:
+  wol_macAddress: "50:91:e3:c9:37:18"
+  wol_broadcastAddress: "255.255.255.255:9"
+schema:
+  wol_macAddress: str
+  wol_broadcastAddress: str
+  domains:
+    domains:
+      - str
