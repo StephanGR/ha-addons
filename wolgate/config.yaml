@@ -22,5 +22,3 @@ schema:
   wol_macAddress: str
   wol_broadcastAddress: str
   domains:
-    domains:
-      - str
