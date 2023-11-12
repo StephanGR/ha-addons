@@ -23,7 +23,6 @@ schema:
   wol_macAddress: str
   wol_broadcastAddress: str
   domains:
-    domains:
-      name: str
+    name:
       address: str
       port: int
