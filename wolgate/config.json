@@ -1,0 +1,21 @@
+{
+  "name": "WolGate",
+  "version": "1.0.0",
+  "slug": "wol-gate",
+  "description": "Description de votre addon.",
+  "arch": ["amd64", "armhf", "armv7", "aarch64"],
+  "options": {
+    "wol_macAddress": "",
+    "wol_broadcastAddress": "255.255.255.255:9",
+    "proxyServer_host": "localhost",
+    "proxyServer_port": 25565,
+    "domains": ""
+  },
+  "schema": {
+    "wol_macAddress": "str",
+    "wol_broadcastAddress": "str",
+    "proxyServer_host": "str",
+    "proxyServer_port": "int",
+    "domains": "str"
+  }
+}
