@@ -190,7 +190,7 @@ func requestLoggerMiddleware(logger *logrus.Logger, next http.Handler) http.Hand
 func main() {
 	logger := initLogger()
 	serverState := &ServerState{}
-	config, err := loadConfig("/config.json")
+	config, err := loadConfig("/app/config.json")
 	if err != nil {
 		log.Fatal("Error loading config file: ", err)
 	}
