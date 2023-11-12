@@ -1,25 +1,11 @@
-{
-  "name": "Wol Gate",
-  "version": "1.0",
-  "slug": "wol-gate",
-  "description": "Description de votre addon",
-  "options": {
-    "wol_mac_address": "",
-    "wol_broadcast_address": "",
-    "proxy_server_host": "",
-    "proxy_server_port": 80,
-    "domains": []
-  },
-  "schema": {
-    "wol_mac_address": "str",
-    "wol_broadcast_address": "str",
-    "proxy_server_host": "str",
-    "proxy_server_port": "int",
-    "domains": [
-      {
-        "address": "str",
-        "port": "int"
-      }
-    ]
-  }
-}
+name: WolGate
+version: 1.0.0
+slug: wol-gate
+description: WolGate description
+arch:
+  - aarch64
+  - amd64
+  - armhf
+  - armv7
+  - i386
+startup: system
