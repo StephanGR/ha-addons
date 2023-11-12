@@ -11,12 +11,6 @@ arch:
 startup: system
 stage: stable
 options:
-  macAddress: ""
-  broadcastAddress: "255.255.255.255:9"
-  host: "localhost"
-  port: 25565
+  config: ""
 schema:
-  macAddress: "str"
-  broadcastAddress: "str"
-  host: "str"
-  port: "int"
+  config: "json"
