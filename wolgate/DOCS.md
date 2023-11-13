@@ -18,7 +18,7 @@ Follow these steps to get the add-on on your system:
 ## Configuration
 
 You have only the configuration to set:
-```yaml
+```yml
 # example
 - url: https://sub1.domain.com
   macAddress: xx:xx:xx:xx:xx:xx
