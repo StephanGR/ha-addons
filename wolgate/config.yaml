@@ -4,7 +4,7 @@ slug: wolgate
 startup: application
 stage: stable
 host_network: true
-description: Description of wolgate
+description: The Home Assistant Add-on for a Connected and Eco-responsible Home
 url: https://github.com/StephanGR/ha-addons/tree/main/wolgate
 arch:
   - armv7
@@ -17,17 +17,17 @@ options:
     - url: https://sub1.domain.com
       macAddress: 11:22:33:44:55:66
       broadcastAddress: 255.255.255.255:9
-      ipAddress: 192.168.1.5
+      ip: 192.168.1.5
       port: 1234
     - url: https://sub2.domain.com
       macAddress: 11:22:33:44:55:66
       broadcastAddress: 255.255.255.255:9
-      ipAddress: 192.168.1.6
+      ip: 192.168.1.6
       port: 1234
 schema:
   domains:
     - url: str
       macAddress: str
       broadcastAddress: str
-      address: str
+      ip: str
       port: int
