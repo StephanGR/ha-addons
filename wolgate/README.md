@@ -1,35 +1,29 @@
-# WolGate
+# WolGate: The Home Assistant Add-on for a Connected and Eco-responsible Home
 
-This add-on runs on port **3881** ! 
+## Wake Up Your Home with Intelligence
 
-## Installation
+Imagine a home where every server comes to life just when you need it, without wasting an ounce of energy when it's idle. This is exactly what WolGate, the revolutionary add-on for Home Assistant, gives you.
 
-Follow these steps to get the add-on on your system:
+## Energy Saving and Daily Comfort
 
-1. Click the Home Assistant My button below to open the add-on on your Home
-   Assistant instance.
+WolGate is designed for modern, environmentally conscious households. By putting your servers to sleep when not in use and automatically waking them up on demand, WolGate significantly reduces power consumption. Say goodbye to excessive electricity bills and hello to a greener lifestyle.
 
-   [![Add repository on my Home Assistant][repository-badge]][repository-url]
+## Technology that Adapts to You
 
-2. Find the "WolGate" add-on and click it.
-3. Click on the "INSTALL" button
-4. Enjoy the add-on!
+Whether you want to access your Plex server for movie night, or need your computing resources for work, WolGate has you covered. It automatically detects your request and wakes up the concerned server, without any manual intervention. Your smart home has never been so responsive and tailored to your needs.
 
-## Configuration
+## Easy Installation and Flexible Configuration
 
-You have only the configuration to set:
-```yaml
-# example
-- url: https://sub1.domain.com
-  macAddress: xx:xx:xx:xx:xx:xx
-  broadcastAddress: 255.255.255.255:9
-  ip: 192.168.0.200
-  port: 1234
-- url: https://sub2.domain.com
-  macAddress: xx:xx:xx:xx:xx:xx
-  broadcastAddress: 255.255.255.255:9
-  ip: 192.168.0.200
-  port: 5678
-```
+Designed with an intuitive user interface, WolGate is easy to install and configure via Home Assistant. Its advanced customization allows you to manage multiple servers with different configurations, adapting perfectly to the topology of your home network.
 
-Now click on save and you are good to go :)
+## Security and Reliability
+
+WolGate is not only smart and energy efficient, it is also secure. Designed with network security in mind, it ensures that your servers are only accessible when necessary, protecting your data and connected devices.
+
+## For a House of the Future, Today
+
+Join the connected home revolution with WolGate. Save energy, benefit from responsive technology and live in a greener environment. WolGate is not just a solution, it's a step towards the home of the future, available today.
+
+### Choose WolGate
+
+Wake up your home smartly. Reduce your carbon footprint. Live in comfort and peace of mind, knowing that your home is working for you and the planet.
