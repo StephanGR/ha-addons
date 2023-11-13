@@ -140,7 +140,7 @@ func handler(logger *logrus.Logger, w http.ResponseWriter, r *http.Request, conf
 	serverAddress := fmt.Sprintf("%s:%d", domainConfig.Ip, domainConfig.Port)
 
 	if !isServerUp(serverAddress) {
-		logger.Info("Plex server is offline, trying to wake up using Wake On Lan")
+		logger.Info("Server is offline, trying to wake up using Wake On Lan")
 		wakeServer(logger, domainConfig.MacAddress, domainConfig.BroadcastAddress, serverState)
 
 		timeout := time.After(1 * time.Minute)
