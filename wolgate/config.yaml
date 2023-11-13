@@ -12,18 +12,19 @@ arch:
   - aarch64
   - amd64
   - i386
-ports:
-  3881/tcp: 3881
-ports_description:
-  3881/tcp: Port on which wolgate is running
 options:
-  wol_macAddress: "50:91:e3:c9:37:18"
-  wol_broadcastAddress: "255.255.255.255:9"
-  domains: []
+  domains:
+    - url: https://sub1.domain.com
+      macAddress: 11:22:33:44:55:66
+      broadcastAddress: 255.255.255.255:9
+      ipAddress: 192.168.1.5
+      port: 1234
 schema:
   wol_macAddress: str
   wol_broadcastAddress: str
   domains:
     - url: str
+      macAddress: str
+      broadcastAddress: str
       address: str
       port: int

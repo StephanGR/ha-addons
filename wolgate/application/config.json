@@ -1,16 +1,16 @@
 {
-  "wol": {
-    "macAddress": "50:91:e3:c9:37:18",
-    "broadcastAddress": "255.255.255.255:9"
-  },
   "domains": [
     {
-      "url": "play.alypto.com",
+      "url": "play.xxx.com",
+      "macAddress": "50:91:e3:c9:37:18",
+      "broadcastAddress": "255.255.255.255:9",
       "address": "192.168.0.200",
       "port": 32400
     },
     {
-      "url": "jelly.alypto.com",
+      "url": "jelly.xxx.com",
+      "macAddress": "50:91:e3:c9:37:18",
+      "broadcastAddress": "255.255.255.255:9",
       "address": "192.168.0.200",
       "port": 8096
     }

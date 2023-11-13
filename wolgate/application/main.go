@@ -15,17 +15,15 @@ import (
 )
 
 type Config struct {
-	Wol struct {
-		MacAddress       string `json:"macAddress"`
-		BroadcastAddress string `json:"broadcastAddress"`
-	} `json:"wol"`
 	Domains []DomainConfig `json:"domains"`
 }
 
 type DomainConfig struct {
-	Url     string `json:"url"`
-	Address string `json:"address"`
-	Port    int    `json:"port"`
+	Url              string `json:"url"`
+	MacAddress       string `json:"macAddress"`
+	BroadcastAddress string `json:"broadcastAddress"`
+	Ip               string `json:"ip"`
+	Port             int    `json:"port"`
 }
 
 type ServerState struct {
@@ -123,12 +121,12 @@ func wakeServer(logger *logrus.Logger, macAddress string, broadcastAddress strin
 func handleDomainProxy(w http.ResponseWriter, r *http.Request, domain DomainConfig) {
 	proxy := httputil.NewSingleHostReverseProxy(&url.URL{
 		Scheme: "http",
-		Host:   fmt.Sprintf("%s:%d", domain.Address, domain.Port),
+		Host:   fmt.Sprintf("%s:%d", domain.Ip, domain.Port),
 	})
 
-	r.URL.Host = fmt.Sprintf("%s:%d", domain.Address, domain.Port)
+	r.URL.Host = fmt.Sprintf("%s:%d", domain.Ip, domain.Port)
 	r.URL.Scheme = "http"
-	r.Host = fmt.Sprintf("%s:%d", domain.Address, domain.Port)
+	r.Host = fmt.Sprintf("%s:%d", domain.Ip, domain.Port)
 	proxy.ServeHTTP(w, r)
 }
 
@@ -139,11 +137,11 @@ func handler(logger *logrus.Logger, w http.ResponseWriter, r *http.Request, conf
 		return
 	}
 
-	serverAddress := fmt.Sprintf("%s:%d", domainConfig.Address, domainConfig.Port)
+	serverAddress := fmt.Sprintf("%s:%d", domainConfig.Ip, domainConfig.Port)
 
 	if !isServerUp(serverAddress) {
 		logger.Info("Plex server is offline, trying to wake up using Wake On Lan")
-		wakeServer(logger, config.Wol.MacAddress, config.Wol.BroadcastAddress, serverState)
+		wakeServer(logger, domainConfig.MacAddress, domainConfig.BroadcastAddress, serverState)
 
 		timeout := time.After(1 * time.Minute)
 		ticker := time.NewTicker(5 * time.Second)
@@ -175,7 +173,6 @@ func PingHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 }
 
-// Middleware pour logger les requêtes
 func requestLoggerMiddleware(logger *logrus.Logger, next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		logRequest(logger, r)
