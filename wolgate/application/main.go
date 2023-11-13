@@ -223,5 +223,5 @@ func main() {
 	loggedMux := requestLoggerMiddleware(logger, mux)
 
 	logger.Info("Starting app..")
-	logger.Fatal(http.ListenAndServe(":80", loggedMux))
+	logger.Fatal(http.ListenAndServe(":3881", loggedMux))
 }

@@ -3,7 +3,7 @@ version: "1.0.1"
 slug: wolgate
 startup: application
 stage: stable
-privileged: ["NET_ADMIN"]
+host_network: true
 description: Description of wolgate
 url: https://github.com/StephanGR/ha-addons/tree/main/wolgate
 arch:
@@ -13,9 +13,9 @@ arch:
   - amd64
   - i386
 ports:
-  80/tcp: 25565
+  3881/tcp: 3881
 ports_description:
-  80/tcp: Port on which wolgate is running
+  3881/tcp: Port on which wolgate is running
 options:
   wol_macAddress: "50:91:e3:c9:37:18"
   wol_broadcastAddress: "255.255.255.255:9"
