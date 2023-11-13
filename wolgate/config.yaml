@@ -20,8 +20,6 @@ options:
       ipAddress: 192.168.1.5
       port: 1234
 schema:
-  wol_macAddress: str
-  wol_broadcastAddress: str
   domains:
     - url: str
       macAddress: str
