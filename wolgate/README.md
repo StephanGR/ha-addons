@@ -1,6 +1,6 @@
 # WolGate
 
-This add-on
+This add-on runs on port **3881** ! 
 
 ## Installation
 
@@ -18,10 +18,6 @@ Follow these steps to get the add-on on your system:
 ## Configuration
 
 You have only the configuration to set:
-
-- wol_macAddress: MAC address of the thing you want to wake up
-- vol_broadcastAddress: Broadcast Address
-- domains: a list of url
 ```yaml
 # example
 - url: https://sub1.domain.com
@@ -35,6 +31,5 @@ You have only the configuration to set:
   address: 192.168.0.200
   port: 5678
 ```
-- Network port: Port on which application will be running
 
 Now click on save and you are good to go :)
