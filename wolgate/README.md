@@ -23,12 +23,12 @@ You have only the configuration to set:
 - url: https://sub1.domain.com
   macAddress: xx:xx:xx:xx:xx:xx
   broadcastAddress: 255.255.255.255:9
-  address: 192.168.0.200
+  ip: 192.168.0.200
   port: 1234
 - url: https://sub2.domain.com
   macAddress: xx:xx:xx:xx:xx:xx
   broadcastAddress: 255.255.255.255:9
-  address: 192.168.0.200
+  ip: 192.168.0.200
   port: 5678
 ```
 

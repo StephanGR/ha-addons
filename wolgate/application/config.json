@@ -1,14 +1,14 @@
 {
   "domains": [
     {
-      "url": "play.xxx.com",
+      "url": "play.alypto.com",
       "macAddress": "50:91:e3:c9:37:18",
       "broadcastAddress": "255.255.255.255:9",
       "address": "192.168.0.200",
       "port": 32400
     },
     {
-      "url": "jelly.xxx.com",
+      "url": "jelly.alypto.com",
       "macAddress": "50:91:e3:c9:37:18",
       "broadcastAddress": "255.255.255.255:9",
       "address": "192.168.0.200",
