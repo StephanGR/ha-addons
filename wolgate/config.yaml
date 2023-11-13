@@ -3,8 +3,7 @@ version: "1.0.1"
 slug: wolgate
 startup: application
 stage: stable
-privileged:
-  - NET_ADMIN
+privileged: ["NET_ADMIN"]
 description: Description of wolgate
 url: https://github.com/StephanGR/ha-addons/tree/main/wolgate
 arch:

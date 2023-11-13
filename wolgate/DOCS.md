@@ -19,11 +19,11 @@ You have 4 fields to fill to start up the application:
 ```yaml
 # example
   - url: https://sub1.domain.com
-      address: 192.168.0.200
-      port: 1234
+    address: 192.168.0.200
+    port: 1234
   - url: https://sub2.domain.com
-      address: 192.168.0.200
-      port: 5678
+    address: 192.168.0.200
+    port: 5678
 ```
 - Network port: Port on which application will be running
 
