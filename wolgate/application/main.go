@@ -40,10 +40,14 @@ func initLogger() *logrus.Logger {
 }
 
 func logRequest(logger *logrus.Logger, r *http.Request) {
+	clientIP := r.RemoteAddr
+	forwardedFor := r.Header.Get("X-Forwarded-For")
+
 	logger.WithFields(logrus.Fields{
-		"client": r.RemoteAddr,
-		"method": r.Method,
-		"path":   r.URL.Path,
+		"client":       clientIP,
+		"forwardedFor": forwardedFor,
+		"method":       r.Method,
+		"path":         r.URL.Path,
 	}).Info()
 }
 
@@ -160,7 +164,7 @@ func handler(logger *logrus.Logger, w http.ResponseWriter, r *http.Request, conf
 				}
 			case <-timeout:
 				logger.Info("Timeout reached, server did not wake up.")
-				fmt.Fprintf(w, "Plex server is still offline. Please try again later.")
+				fmt.Fprintf(w, "Server is still offline. Please try again later.")
 				return
 			}
 		}
