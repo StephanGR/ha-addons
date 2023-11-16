@@ -25,11 +25,15 @@ You have only the configuration to set:
   broadcastAddress: 255.255.255.255:9
   ip: 192.168.0.200
   port: 1234
+  excludedEndpoints: 
+     - /Users/Me
+     - /Branding/Configuration
 - url: https://sub2.domain.com
   macAddress: xx:xx:xx:xx:xx:xx
   broadcastAddress: 255.255.255.255:9
   ip: 192.168.0.200
   port: 5678
+  excludedEndpoints: []
 ```
 
 Now click on save and you are good to go :)

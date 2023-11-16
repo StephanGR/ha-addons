@@ -19,11 +19,12 @@ type Config struct {
 }
 
 type DomainConfig struct {
-	Url              string `json:"url"`
-	MacAddress       string `json:"macAddress"`
-	BroadcastAddress string `json:"broadcastAddress"`
-	Ip               string `json:"ip"`
-	Port             int    `json:"port"`
+	Url               string   `json:"url"`
+	MacAddress        string   `json:"macAddress"`
+	BroadcastAddress  string   `json:"broadcastAddress"`
+	Ip                string   `json:"ip"`
+	Port              int      `json:"port"`
+	ExcludedEndpoints []string `json:"excludedEndpoints"`
 }
 
 type ServerState struct {
@@ -141,6 +142,11 @@ func handler(logger *logrus.Logger, w http.ResponseWriter, r *http.Request, conf
 		return
 	}
 
+	if isEndpointExcluded(r.URL.Path, domainConfig.ExcludedEndpoints) {
+		handleDomainProxy(w, r, *domainConfig)
+		return
+	}
+
 	serverAddress := fmt.Sprintf("%s:%d", domainConfig.Ip, domainConfig.Port)
 
 	if !isServerUp(serverAddress) {
@@ -201,6 +207,15 @@ func findDomainConfig(domains []DomainConfig, host string) (*DomainConfig, bool)
 		}
 	}
 	return nil, false
+}
+
+func isEndpointExcluded(endpoint string, excludedEndpoints []string) bool {
+	for _, ex := range excludedEndpoints {
+		if endpoint == ex {
+			return true
+		}
+	}
+	return false
 }
 
 func main() {

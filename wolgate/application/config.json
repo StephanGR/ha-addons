@@ -4,15 +4,20 @@
       "url": "example1.mydomain.com",
       "macAddress": "50:91:e3:c9:37:18",
       "broadcastAddress": "255.255.255.255:9",
-      "address": "192.168.0.x",
-      "port": 1234
+      "ip": "192.168.0.x",
+      "port": 1234,
+      "excludedEndpoints": [
+        "/Users/Me",
+        "/Branding/Configuration"
+      ]
     },
     {
       "url": "example1.mydomain.com",
       "macAddress": "50:91:e3:c9:37:18",
       "broadcastAddress": "255.255.255.255:9",
-      "address": "192.168.0.x",
-      "port": 5678
+      "ip": "192.168.0.x",
+      "port": 5678,
+      "excludedEndpoints": []
     }
   ]
 }

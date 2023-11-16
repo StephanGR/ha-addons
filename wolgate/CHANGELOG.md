@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.0.3
+* 📈 Add excludedEnpoints in config to not waking up a server for these endpoints
+
 ## 1.0.2
 * 📈 Check if update is working
 
