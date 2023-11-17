@@ -1,5 +1,5 @@
 name: WolGate
-version: "1.0.2-2"
+version: "1.0.2-3"
 slug: wolgate
 startup: application
 stage: stable
@@ -19,7 +19,7 @@ options:
       broadcastAddress: 255.255.255.255:9
       ip: 192.168.1.5
       port: 1234
-      excludedAddress:
+      excludedEndpoints:
         - /Users/Me
         - /Branding/Configuration
     - url: https://sub2.domain.com
@@ -27,7 +27,7 @@ options:
       broadcastAddress: 255.255.255.255:9
       ip: 192.168.1.6
       port: 1234
-      excludedAddress: []
+      excludedEndpoints: []
 schema:
   domains:
     - url: str
@@ -35,5 +35,5 @@ schema:
       broadcastAddress: str
       ip: str
       port: int
-      excludedAddress:
+      excludedEndpoints:
         - str?
