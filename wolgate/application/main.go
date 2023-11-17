@@ -143,6 +143,7 @@ func handler(logger *logrus.Logger, w http.ResponseWriter, r *http.Request, conf
 	}
 
 	if isEndpointExcluded(r.URL.Path, domainConfig.ExcludedEndpoints) {
+		logger.Info(fmt.Sprintf("Endpoint '%s' is excluded, not waking up the server.", r.URL.Path))
 		handleDomainProxy(w, r, *domainConfig)
 		return
 	}
