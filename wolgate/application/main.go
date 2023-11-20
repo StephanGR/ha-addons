@@ -44,11 +44,9 @@ func initLogger() *logrus.Logger {
 }
 
 func logRequest(logger *logrus.Logger, r *http.Request) {
-	clientIP := r.RemoteAddr
 	forwardedFor := r.Header.Get("X-Forwarded-For")
 
 	logger.WithFields(logrus.Fields{
-		"client":       clientIP,
 		"forwardedFor": forwardedFor,
 		"method":       r.Method,
 		"user-agent":   r.UserAgent(),
