@@ -50,7 +50,7 @@ func logRequest(logger *logrus.Logger, r *http.Request) {
 		"client":       clientIP,
 		"forwardedFor": forwardedFor,
 		"method":       r.Method,
-		"user-agent":   r.UserAgent,
+		"userAgent":    r.UserAgent,
 		"path":         r.URL.Path,
 	}).Info()
 }
