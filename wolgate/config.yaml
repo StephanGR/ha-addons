@@ -1,5 +1,5 @@
 name: WolGate
-version: "1.0.4-1"
+version: "1.0.4-2"
 slug: wolgate
 startup: application
 stage: stable

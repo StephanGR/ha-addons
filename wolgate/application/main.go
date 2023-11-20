@@ -8,6 +8,7 @@ import (
 	"net/http/httputil"
 	"net/url"
 	"os"
+	"strings"
 	"sync"
 	"time"
 
@@ -210,12 +211,22 @@ func findDomainConfig(domains []DomainConfig, host string) (*DomainConfig, bool)
 }
 
 func shouldWakeServer(endpoint string, wakeUpEndpoints []string) bool {
-	for _, wue := range wakeUpEndpoints {
-		if endpoint == wue {
+	for _, pattern := range wakeUpEndpoints {
+		if pattern == endpoint || matchesPattern(endpoint, pattern) {
 			return true
 		}
 	}
 	return false
+}
+
+func matchesPattern(endpoint, pattern string) bool {
+	splitPattern := strings.Split(pattern, "*")
+	if len(splitPattern) != 2 {
+		return false // ou retourner une erreur si le motif n'est pas valide
+	}
+
+	prefix, suffix := splitPattern[0], splitPattern[1]
+	return strings.HasPrefix(endpoint, prefix) && strings.HasSuffix(endpoint, suffix)
 }
 
 func main() {
