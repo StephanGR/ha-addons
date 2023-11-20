@@ -1,5 +1,5 @@
 name: WolGate
-version: "1.0.3"
+version: "1.0.4"
 slug: wolgate
 startup: application
 stage: stable
@@ -17,23 +17,26 @@ options:
     - url: https://sub1.domain.com
       macAddress: 11:22:33:44:55:66
       broadcastAddress: 255.255.255.255:9
-      ip: 192.168.1.5
-      port: 1234
-      excludedEndpoints:
+      wakeUpIp: 192.168.1.10
+      forwardIp: 192.168.1.5
+      forwardPort: 1234
+      wakeUpEndpoints:
         - /Users/Me
         - /Branding/Configuration
     - url: https://sub2.domain.com
       macAddress: 11:22:33:44:55:66
       broadcastAddress: 255.255.255.255:9
-      ip: 192.168.1.6
-      port: 1234
-      excludedEndpoints: []
+      wakeUpIp: 192.168.1.10
+      forwardIp: 192.168.1.6
+      forwardPort: 1234
+      wakeUpEndpoints: []
 schema:
   domains:
     - url: str
       macAddress: str
       broadcastAddress: str
-      ip: str
-      port: int
-      excludedEndpoints:
+      wakeUpIp: str
+      forwardIp: str
+      forwardPort: int
+      wakeUpEndpoints:
         - str?

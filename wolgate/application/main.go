@@ -3,8 +3,6 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/mdlayher/wol"
-	"github.com/sirupsen/logrus"
 	"net"
 	"net/http"
 	"net/http/httputil"
@@ -12,6 +10,9 @@ import (
 	"os"
 	"sync"
 	"time"
+
+	"github.com/mdlayher/wol"
+	"github.com/sirupsen/logrus"
 )
 
 type Config struct {
@@ -19,12 +20,13 @@ type Config struct {
 }
 
 type DomainConfig struct {
-	Url               string   `json:"url"`
-	MacAddress        string   `json:"macAddress"`
-	BroadcastAddress  string   `json:"broadcastAddress"`
-	Ip                string   `json:"ip"`
-	Port              int      `json:"port"`
-	ExcludedEndpoints []string `json:"excludedEndpoints"`
+	Url              string   `json:"url"`
+	MacAddress       string   `json:"macAddress"`
+	BroadcastAddress string   `json:"broadcastAddress"`
+	WakeUpIp         string   `json:"wakeUpIp"`
+	ForwardIp        string   `json:"forwardIp"`
+	ForwardPort      int      `json:"forwardPort"`
+	WakeUpEndpoints  []string `json:"wakeUpEndpoints"`
 }
 
 type ServerState struct {
@@ -48,6 +50,7 @@ func logRequest(logger *logrus.Logger, r *http.Request) {
 		"client":       clientIP,
 		"forwardedFor": forwardedFor,
 		"method":       r.Method,
+		"user-agent":   r.UserAgent,
 		"path":         r.URL.Path,
 	}).Info()
 }
@@ -126,12 +129,12 @@ func wakeServer(logger *logrus.Logger, macAddress string, broadcastAddress strin
 func handleDomainProxy(w http.ResponseWriter, r *http.Request, domain DomainConfig) {
 	proxy := httputil.NewSingleHostReverseProxy(&url.URL{
 		Scheme: "http",
-		Host:   fmt.Sprintf("%s:%d", domain.Ip, domain.Port),
+		Host:   fmt.Sprintf("%s:%d", domain.ForwardIp, domain.ForwardPort),
 	})
 
-	r.URL.Host = fmt.Sprintf("%s:%d", domain.Ip, domain.Port)
+	r.URL.Host = fmt.Sprintf("%s:%d", domain.ForwardIp, domain.ForwardPort)
 	r.URL.Scheme = "http"
-	r.Host = fmt.Sprintf("%s:%d", domain.Ip, domain.Port)
+	r.Host = fmt.Sprintf("%s:%d", domain.ForwardIp, domain.ForwardPort)
 	proxy.ServeHTTP(w, r)
 }
 
@@ -142,38 +145,34 @@ func handler(logger *logrus.Logger, w http.ResponseWriter, r *http.Request, conf
 		return
 	}
 
-	if isEndpointExcluded(r.URL.Path, domainConfig.ExcludedEndpoints) {
-		logger.Info(fmt.Sprintf("Endpoint '%s' is excluded, not waking up the server.", r.URL.Path))
-		handleDomainProxy(w, r, *domainConfig)
-		return
-	}
+	if shouldWakeServer(r.URL.Path, domainConfig.WakeUpEndpoints) {
+		serverAddress := fmt.Sprintf("%s:%d", domainConfig.WakeUpIp, domainConfig.ForwardPort)
+		if !isServerUp(serverAddress) {
+			logger.Info("Server is offline, trying to wake up using Wake On Lan")
+			wakeServer(logger, domainConfig.MacAddress, domainConfig.BroadcastAddress, serverState)
+			timeout := time.After(1 * time.Minute)
+			ticker := time.NewTicker(5 * time.Second)
+			defer ticker.Stop()
 
-	serverAddress := fmt.Sprintf("%s:%d", domainConfig.Ip, domainConfig.Port)
-
-	if !isServerUp(serverAddress) {
-		logger.Info("Server is offline, trying to wake up using Wake On Lan")
-		wakeServer(logger, domainConfig.MacAddress, domainConfig.BroadcastAddress, serverState)
-
-		timeout := time.After(1 * time.Minute)
-		ticker := time.NewTicker(5 * time.Second)
-		defer ticker.Stop()
-
-		for {
-			select {
-			case <-ticker.C:
-				if isServerUp(serverAddress) {
-					logger.Info("Server is up !")
-					externalUrl := fmt.Sprintf("http://%s", r.Host)
-					http.Redirect(w, r, externalUrl, http.StatusSeeOther)
+			for {
+				select {
+				case <-ticker.C:
+					if isServerUp(serverAddress) {
+						logger.Info("Server is up !")
+						externalUrl := fmt.Sprintf("http://%s", r.Host)
+						http.Redirect(w, r, externalUrl, http.StatusSeeOther)
+						return
+					} else {
+						logger.Info("Waiting for server to wake up...")
+					}
+				case <-timeout:
+					logger.Info("Timeout reached, server did not wake up.")
+					fmt.Fprintf(w, "Server is still offline. Please try again later.")
 					return
-				} else {
-					logger.Info("Waiting for server to wake up...")
 				}
-			case <-timeout:
-				logger.Info("Timeout reached, server did not wake up.")
-				fmt.Fprintf(w, "Server is still offline. Please try again later.")
-				return
 			}
+		} else {
+			handleDomainProxy(w, r, *domainConfig)
 		}
 	} else {
 		handleDomainProxy(w, r, *domainConfig)
@@ -210,9 +209,9 @@ func findDomainConfig(domains []DomainConfig, host string) (*DomainConfig, bool)
 	return nil, false
 }
 
-func isEndpointExcluded(endpoint string, excludedEndpoints []string) bool {
-	for _, ex := range excludedEndpoints {
-		if endpoint == ex {
+func shouldWakeServer(endpoint string, wakeUpEndpoints []string) bool {
+	for _, wue := range wakeUpEndpoints {
+		if endpoint == wue {
 			return true
 		}
 	}
