@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.0.5
+* 📈 Remove client from logger
+
 ## 1.0.4
 * 📈 Revert excludedEnpoints for wakeUpEndpoints, add forwardIp
 
