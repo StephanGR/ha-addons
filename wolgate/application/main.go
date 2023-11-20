@@ -151,32 +151,40 @@ func handler(logger *logrus.Logger, w http.ResponseWriter, r *http.Request, conf
 		if !isServerUp(serverAddress) {
 			logger.Info("Server is offline, trying to wake up using Wake On Lan")
 			wakeServer(logger, domainConfig.MacAddress, domainConfig.BroadcastAddress, serverState)
-			timeout := time.After(1 * time.Minute)
-			ticker := time.NewTicker(5 * time.Second)
-			defer ticker.Stop()
 
-			for {
-				select {
-				case <-ticker.C:
-					if isServerUp(serverAddress) {
-						logger.Info("Server is up !")
-						externalUrl := fmt.Sprintf("http://%s", r.Host)
-						http.Redirect(w, r, externalUrl, http.StatusSeeOther)
-						return
-					} else {
-						logger.Info("Waiting for server to wake up...")
-					}
-				case <-timeout:
-					logger.Info("Timeout reached, server did not wake up.")
-					fmt.Fprintf(w, "Server is still offline. Please try again later.")
-					return
-				}
-			}
+			waitServerOnline(logger, serverAddress, w, r)
+			return
 		} else {
 			handleDomainProxy(w, r, *domainConfig)
 		}
 	} else {
 		handleDomainProxy(w, r, *domainConfig)
+	}
+}
+
+func waitServerOnline(logger *logrus.Logger, serverAddress string, w http.ResponseWriter, r *http.Request) {
+	timeout := time.After(1 * time.Minute)
+	ticker := time.NewTicker(5 * time.Second)
+	defer ticker.Stop()
+
+	for {
+		select {
+		case <-ticker.C:
+			if isServerUp(serverAddress) {
+				logger.Info("Server is up !")
+				return
+				//externalUrl := fmt.Sprintf("http://%s", r.Host)
+				//http.Redirect(w, r, externalUrl, http.StatusSeeOther)
+				//return
+			}
+			//else {
+			//	logger.Info("Waiting for server to wake up...")
+			//}
+		case <-timeout:
+			logger.Info("Timeout reached, server did not wake up.")
+			fmt.Fprintf(w, "Server is still offline. Please try again later.")
+			return
+		}
 	}
 }
 
