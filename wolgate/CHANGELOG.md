@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.0.3
+## 1.0.4
 * 📈 Revert excludedEnpoints for wakeUpEndpoints, add forwardIp
 
 ## 1.0.3
