@@ -1,6 +1,9 @@
 # Changelog
 
 ## 1.0.3
+* 📈 Revert excludedEnpoints for wakeUpEndpoints, add forwardIp
+
+## 1.0.3
 * 📈 Add excludedEnpoints in config to not waking up a server for these endpoints
 
 ## 1.0.2
@@ -10,5 +13,4 @@
 * 📈 Improve logger to display X-Forwarded-For
 
 ## 1.0.0
-
 * 📈 Initial version
