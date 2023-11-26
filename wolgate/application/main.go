@@ -24,7 +24,7 @@ type DomainConfig struct {
 	Url              string   `json:"url"`
 	MacAddress       string   `json:"macAddress"`
 	BroadcastAddress string   `json:"broadcastAddress"`
-	WakeUpPort       string   `json:"wakeUpPort"`
+	WakeUpPort       int      `json:"wakeUpPort"`
 	WakeUpIp         string   `json:"wakeUpIp"`
 	ForwardIp        string   `json:"forwardIp"`
 	ForwardPort      int      `json:"forwardPort"`
