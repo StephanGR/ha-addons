@@ -24,6 +24,7 @@ type DomainConfig struct {
 	Url              string   `json:"url"`
 	MacAddress       string   `json:"macAddress"`
 	BroadcastAddress string   `json:"broadcastAddress"`
+	WakeUpPort       string   `json:"wakeUpPort"`
 	WakeUpIp         string   `json:"wakeUpIp"`
 	ForwardIp        string   `json:"forwardIp"`
 	ForwardPort      int      `json:"forwardPort"`
@@ -88,9 +89,14 @@ func loadConfig(configPath string) (*Config, error) {
 	return &config, nil
 }
 
-func isServerUp(address string) bool {
-	_, err := net.Dial("tcp", address)
-	return err == nil
+func isServerUp(logger *logrus.Logger, address string) bool {
+	conn, err := net.Dial("tcp", address)
+	if err != nil {
+		logger.Warn("Failed to connect:", err) // Use your logger to log this error appropriately.
+		return false
+	}
+	conn.Close()
+	return true
 }
 
 func wakeServer(logger *logrus.Logger, macAddress string, broadcastAddress string, serverState *ServerState) {
@@ -144,8 +150,8 @@ func handler(logger *logrus.Logger, w http.ResponseWriter, r *http.Request, conf
 	}
 
 	if shouldWakeServer(r.URL.Path, domainConfig.WakeUpEndpoints) {
-		serverAddress := fmt.Sprintf("%s:%d", domainConfig.WakeUpIp, domainConfig.ForwardPort)
-		if !isServerUp(serverAddress) {
+		serverAddress := fmt.Sprintf("%s:%d", domainConfig.WakeUpIp, domainConfig.WakeUpPort)
+		if !isServerUp(logger, serverAddress) {
 			logger.Info("Server is offline, trying to wake up using Wake On Lan")
 			wakeServer(logger, domainConfig.MacAddress, domainConfig.BroadcastAddress, serverState)
 
@@ -167,7 +173,7 @@ func waitServerOnline(logger *logrus.Logger, serverAddress string, w http.Respon
 	for {
 		select {
 		case <-ticker.C:
-			if isServerUp(serverAddress) {
+			if isServerUp(logger, serverAddress) {
 				logger.Info("Server is up !")
 				return
 				//externalUrl := fmt.Sprintf("http://%s", r.Host)

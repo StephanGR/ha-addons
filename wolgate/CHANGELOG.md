@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.0.7
+* 📈 Add wakeUpPort 
+
 ## 1.0.6
 * 📈 Update logger, to show the client IP of first proxy
 
